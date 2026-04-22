@@ -19,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (!$this->app->runningInConsole()) {
+            // Disable automatic migrations during web requests to prevent
+            // connection errors when the database is not yet available at
+            // application startup (e.g. when using php -S built-in server).
+            \Illuminate\Database\Migrations\Migrator::withoutMigrations();
+        }
     }
 }
