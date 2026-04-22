@@ -1,0 +1,9 @@
+[build]
+nixpacks = ["php82", "php82Packages.composer"]
+
+[build.cmds]
+install = "composer install --no-dev --optimize-autoloader --no-interaction"
+optimize = "php artisan config:cache && php artisan route:cache && php artisan view:cache"
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
